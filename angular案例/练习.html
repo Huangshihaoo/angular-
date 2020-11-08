@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body ng-app='myApp'>
+    <div ng-controller='myCtrl'>
+        <h2>我的笔记</h2>
+        <textarea ng-model="text" cols="30" rows="10" maxlength="100">{{content}}</textarea>
+        <p> <button ng-click="save()">保存</button>
+            <button ng-click="read()">读取</button>
+            <button ng-click='remove()'>删除</button>
+            <button ng-click='look()'>查看</button>
+        </p>
+        <p>剩余字数：{{flag()}}</p>
+    </div>
+
+</body>
+<script src="./js/angular-1.5.5/angular.js"></script>
+<script>
+    angular.module('myApp', [])
+        .controller('myCtrl', ['$scope', function($scope) {
+            $scope.text = '';
+
+            $scope.flag = function() {
+
+                return 100 - $scope.text.length
+            };
+
+            $scope.save = () => {
+                if ($scope.text.length === 0) {
+                    window.alert('请输入内容')
+                } else {
+                    $scope.keep = window.prompt('输入标题，留作查询');
+                    window.localStorage.setItem($scope.keep, $scope.text)
+                    $scope.text = '';
+                }
+
+
+            };
+            $scope.read = () => {
+                if (window.localStorage.length === 0) {
+                    $scope.text = '';
+                    window.alert('暂无可读取数据')
+
+                } else {
+                    $scope.get = window.prompt('输入想要查询的数据标题')
+                    $scope.text = window.localStorage.getItem($scope.get);
+
+                }
+
+
+            };
+            $scope.remove = () => {
+                if (window.localStorage.length === 0) {
+                    window.alert('无数据')
+                } else {
+                    $scope.removeName = prompt('输入要删除的数据名');
+
+                    $scope.text = window.localStorage.removeItem($scope.removeName)
+                    $scope.text = '';
+                }
+
+            };
+            $scope.look = () => {
+                console.log(window.localStorage);
+            }
+
+        }])
+</script>
+
+</html>

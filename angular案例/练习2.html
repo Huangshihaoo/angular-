@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body ng-app='myApp'>
+    <div ng-controller='MyCtrl'>
+        <h2>我的备忘录</h2>
+        <p>
+            <input type="text" ng-model='txt'>
+            <button ng-click='add()'>新增</button>
+        </p>
+
+        <ul>
+            <li ng-repeat='todo in todos'>
+                <input type="checkbox" ng-model='todo.flag'>{{todo.data}}
+            </li>
+
+        </ul>
+        <p><button ng-click='remove()'>删除选中记录</button></p>
+
+    </div>
+    <script src="./js/angular-1.5.5/angular.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
